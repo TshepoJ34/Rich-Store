@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,6 +252,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -281,6 +284,24 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rich-store.Core\Rich-store.Core\Rich-store.Core.csproj">
+      <Project>{e3bf8ac8-e8e7-4c9b-a8b9-4aa5d7f228ff}</Project>
+      <Name>Rich-store.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rich-store.DataAccess.InMemory\Rich-store.DataAccess.InMemory.csproj">
+      <Project>{c8f38de3-ca55-4747-a3d1-ea8bb53c47f4}</Project>
+      <Name>Rich-store.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rich-store.DataAccess.SQL\Rich-store.DataAccess.SQL.csproj">
+      <Project>{74ccff0c-c73a-49c4-adf9-248046f64c6d}</Project>
+      <Name>Rich-store.DataAccess.SQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rich-store.Service\Rich-store.Service.csproj">
+      <Project>{1e2ad7cd-366c-47fe-9c8b-3c8eb942141b}</Project>
+      <Name>Rich-store.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
