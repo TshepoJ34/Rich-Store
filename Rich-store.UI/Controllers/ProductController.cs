@@ -1,36 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rich_store.Core.Contracts;
 using Rich_store.Core.Models;
+using Rich_store.Core.View_Model;
+using Rich_store.Core.View_Models;
 using Rich_store.DataAccess.InMemory;
 
 namespace Rich_store.UI.Controllers
 {
     public class ProductController : Controller
     {
-        ProductRepository context;
-        public ProductController()
-        {
-            context = new ProductRepository();
-        }
-        // GET: Product
-        public ActionResult Index()
-        {   
 
+        // GET: Product
+        IRepository<Product> context;
+        IRepository<ProductCategory> productCategories;
+        public ProductController(IRepository<Product> productContext,
+            IRepository<ProductCategory> categoryContext)
+        {
+            context = productContext;
+            productCategories = categoryContext;
+        }
+        public ActionResult Index()
+        {
             List<Product> products = context.Collection().ToList();
             return View(products);
         }
-        public ActionResult Create(Product product)
+        public ActionResult Create()
         {
-            if (ModelState.IsValid)
+            ProductVM viewModel = new ProductVM();
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = productCategories.Collection();
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult Create(Product product, HttpPostedFileBase file)
+        {
+            if (!ModelState.IsValid)
             {
                 return View(product);
-            }else
+            }
+            else
             {
+                if (file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//" + product.Image));
+                }
                 context.Insert(product);
-                context.Comit();
+                context.Commit();
                 return RedirectToAction("Index");
             }
         }
@@ -38,35 +59,60 @@ namespace Rich_store.UI.Controllers
         {
             Product product = context.Find(Id);
             if (product == null)
-            {
                 return HttpNotFound();
-            }else
-            {
-                return View(product);
-            }
-        }
-        [HttpPost]
-        public ActionResult Edit(Product product, string Id)
-        {
-            Product prod = context.Find(Id);
-            if (prod == null)
-            {
-                return HttpNotFound();
-            }
             else
             {
-                if(!ModelState.IsValid)
+                ProductVM viewModel = new ProductVM();
+                viewModel.Product = product;
+                viewModel.ProductCategories = productCategories.Collection();
+                return View(viewModel);
+            }
+
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase file)
+        {
+            Product p = context.Find(Id);
+            if (p == null)
+                return HttpNotFound();
+            else
+            {
+                if (!ModelState.IsValid)
                 {
                     return View(product);
                 }
-                prod.Category = product.Category;
-                prod.Description = product.Description;
-                prod.Image = product.Image;
-                prod.Name = product.Name;
-                prod.Price = product.Price;
-                context.Comit();
-                return RedirectToAction("Index");
+                if (file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//" + product.Image));
+                }
+                p.Category = product.Category;
+                p.Description = product.Description;
+                p.Name = product.Name;
+                p.Price = product.Price;
+                context.Commit();
+                return RedirectToAction("index");
+
             }
+        }
+        public ActionResult Delete(string Id)
+        {
+            Product p = context.Find(Id);
+            if (p == null)
+                return HttpNotFound();
+            else
+                return View(p);
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(string Id)
+        {
+            Product p = context.Find(Id);
+            if (p == null)
+                return HttpNotFound();
+            else
+                context.Delete(Id);
+            return RedirectToAction("Index");
         }
     }
 }
