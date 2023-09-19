@@ -1,9 +1,9 @@
 ﻿using Rich_store.Core.Models;
 using System.Linq;
 
-namespace Rich_store.Core.Contracts
+namespace Rich_store.DataAccess.InMemory
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IInMemoryRepository<T> where T : BaseEntity
     {
         IQueryable<T> Collection();
         void Comit();

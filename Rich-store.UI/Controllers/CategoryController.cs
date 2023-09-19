@@ -11,8 +11,8 @@ namespace Rich_store.UI.Controllers
 {
     public class CategoryController : Controller
     {
-        IRepository<ProductCategory> context;
-        public CategoryController(IRepository<ProductCategory> categoryContext)
+        Core.Contracts.IRepository<ProductCategory> context;
+        public CategoryController(Core.Contracts.IRepository<ProductCategory> categoryContext)
         {
             context = categoryContext;
         }
@@ -37,7 +37,7 @@ namespace Rich_store.UI.Controllers
             else
             {
                 context.Insert(productCategory);
-                context.Commit();
+                context.Comit();
                 return RedirectToAction("Index");
             }
         }
@@ -65,7 +65,7 @@ namespace Rich_store.UI.Controllers
             else
             {
                 CategoryToEdit.Category = productCategory.Category;
-                context.Commit();
+                context.Comit();
                 return RedirectToAction("Index");
             }
         }

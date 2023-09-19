@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Rich_store.Core.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public string Id { get; set; }
+        
         [StringLength(30)]
         [DisplayName("Product Name")]
         public string Name { get; set; }

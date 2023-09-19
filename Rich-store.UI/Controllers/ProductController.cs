@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using Rich_store.Core.Contracts;
 using Rich_store.Core.Models;
-using Rich_store.Core.View_Model;
 using Rich_store.Core.View_Models;
 using Rich_store.DataAccess.InMemory;
 
@@ -14,7 +13,6 @@ namespace Rich_store.UI.Controllers
 {
     public class ProductController : Controller
     {
-
         // GET: Product
         IRepository<Product> context;
         IRepository<ProductCategory> productCategories;
@@ -51,7 +49,7 @@ namespace Rich_store.UI.Controllers
                     file.SaveAs(Server.MapPath("//Content//ProductImages//" + product.Image));
                 }
                 context.Insert(product);
-                context.Commit();
+                context.Comit();
                 return RedirectToAction("Index");
             }
         }
@@ -90,7 +88,7 @@ namespace Rich_store.UI.Controllers
                 p.Description = product.Description;
                 p.Name = product.Name;
                 p.Price = product.Price;
-                context.Commit();
+                context.Comit();
                 return RedirectToAction("index");
 
             }
