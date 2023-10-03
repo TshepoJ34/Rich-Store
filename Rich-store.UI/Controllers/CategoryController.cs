@@ -11,8 +11,8 @@ namespace Rich_store.UI.Controllers
 {
     public class CategoryController : Controller
     {
-        Core.Contracts.IRepository<ProductCategory> context;
-        public CategoryController(Core.Contracts.IRepository<ProductCategory> categoryContext)
+        IRepository<ProductCategory> context;
+        public CategoryController(IRepository<ProductCategory> categoryContext)
         {
             context = categoryContext;
         }
