@@ -51,11 +51,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContext.cs" />
+    <Compile Include="Migrations\202310091520584_Initial.cs" />
+    <Compile Include="Migrations\202310091520584_Initial.designer.cs">
+      <DependentUpon>202310091520584_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rich-store.Core\Rich-store.Core\Rich-store.Core.csproj">
+      <Project>{E3BF8AC8-E8E7-4C9B-A8B9-4AA5D7F228FF}</Project>
+      <Name>Rich-store.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202310091520584_Initial.resx">
+      <DependentUpon>202310091520584_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
