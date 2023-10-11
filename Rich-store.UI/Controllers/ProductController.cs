@@ -35,13 +35,18 @@ namespace Rich_store.UI.Controllers
             return View(View_Models);
         }
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }else
             {
+                if(file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+                }
                 context.Insert(product);
                 context.Comit();
                 return RedirectToAction("Index");
@@ -63,7 +68,7 @@ namespace Rich_store.UI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(Product product, string Id)
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase file)
         {
             Product prod = context.Find(Id);
             if (prod == null)
@@ -76,9 +81,14 @@ namespace Rich_store.UI.Controllers
                 {
                     return View(product);
                 }
+                if(file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+                }
                 prod.Category = product.Category;
                 prod.Description = product.Description;
-                prod.Image = product.Image;
+                
                 prod.Name = product.Name;
                 prod.Price = product.Price;
                 context.Comit();

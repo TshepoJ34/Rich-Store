@@ -7,13 +7,13 @@ namespace Rich_store.DataAccess.SQL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class Server : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Server));
         
         string IMigrationMetadata.Id
         {
-            get { return "202310091520584_Initial"; }
+            get { return "202310101617342_Server"; }
         }
         
         string IMigrationMetadata.Source
