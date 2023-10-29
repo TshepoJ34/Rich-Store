@@ -1,10 +1,10 @@
 ﻿@model Rich_store.Core.Models.Product
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name + "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Name ) </h2>
 
 <div>
     <h4>Product</h4>
