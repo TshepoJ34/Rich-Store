@@ -18,22 +18,16 @@ namespace Rich_store.UI.Controllers
             context = productContext;
             productCategories = categoryContext;
         }
-        public ActionResult Index()
+        public ActionResult Index(string Category = null)
         {
-            List<Product> products = context.Collection().ToList();
-            return View(products);
-        }
-        public ActionResult Details(string Id)
-        {
-            Product product = context.Find(Id);
-            if(product == null)
+            List<Product> products;
+            List<ProductCategory> categories = productCategories.Collection().ToList();
+            if (Category == null)
             {
-                return HttpNotFound();
-            }else
-            {
-                return View(product);
+                products =
             }
         }
+       
 
         public ActionResult About()
         {
